@@ -13,4 +13,4 @@ In addition, we will search, through binary search, a character (typed by the us
 We will also calculate, using properties, the fundamental characteristics of the tree, which are:
 * NODES
 * HEIGHT
-* LEAF
+* LEAFS
