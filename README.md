@@ -18,3 +18,5 @@ We will also calculate, using properties, the fundamental characteristics of the
 * *Nodes* (**conta_nos**)
 * *Height* (**calcula_altura_arv**)
 * *Leafs* (**conta_nos_folha**)
+
+Last but not least, we free the binary tree memory (first subtrees, then root node)

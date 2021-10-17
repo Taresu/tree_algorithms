@@ -99,7 +99,7 @@ return esq + dir;
 
 int conta_nos (Arvore *a) {
 
-//Nó: Subárvore / Filho de uma Árvore
+//Nó: Subárvore (pode ser um nó pai ou filho de graus 1 ou 2 ou nó de grau 0 / sem filhos)
 
 //Se encontrar um nó, continua a busca p/ esquerda e p/ direita, incrementando o somatório de nós recursivamente
 if(!verifica_arv_vazia(a)) {return 1 + conta_nos(a->esq) + conta_nos(a->dir);} 
@@ -107,18 +107,18 @@ else {return 0;} //Árvore sem nós
 }
 
 int calcula_altura_arvore (Arvore *a) {
-int folhas_esq, folhas_dir;
+int altura_esq, altura_dir;
 
 //Altura: Comprimento do caminho mais longo da raiz até uma das folhas
 
-if (verifica_arv_vazia(a)) {return 0;}
+if (verifica_arv_vazia(a)) {return -1;}
 else
 {
-   folhas_esq = (conta_nos_folha(a->esq)); //Folhas da subárvore da esquerda
-   folhas_dir = (conta_nos_folha(a->dir)); //Folhas da subárvore da direita
+   altura_esq = (calcula_altura_arvore(a->esq)); 
+   altura_dir = (calcula_altura_arvore(a->dir)); 
 
-   if (folhas_esq > folhas_dir) {return folhas_esq;} //Verificamos qual o maior dos caminhos (esquerda ou direita) 
-   else {return folhas_dir;}
+   //Verificamos e retornamos o maior dos caminhos (esquerda ou direita) recursivamente 
+   return 1 + (altura_esq > altura_dir ? altura_esq : altura_dir);
 }
 }
 
@@ -127,9 +127,9 @@ int conta_nos_folha (Arvore *a) {
 if (verifica_arv_vazia(a)) {return 0;} //Arvore sem nós, portanto, sem folhas
 else 
 {
-   if (verifica_arv_vazia(a->esq) && verifica_arv_vazia (a->dir)) //Caso não tenha filhos
+   if (verifica_arv_vazia(a->esq) && verifica_arv_vazia (a->dir)) //Caso não tenha filhos (nó de grau)
    {
-      //Encontrou uma folha, continua a busca p/ esquerda e p/ direita, incrementando o somatório de nós recursivamente
+      //Encontrou uma folha, incrementa-se o somatório de nós e continua a busca p/ esquerda e p/ direita recursivamente (outros ramos)
       return 1 + conta_nos_folha(a->esq) + conta_nos_folha(a->dir);
    }
    else {return conta_nos_folha(a->esq) + conta_nos_folha(a->dir);} //Continua a busca
